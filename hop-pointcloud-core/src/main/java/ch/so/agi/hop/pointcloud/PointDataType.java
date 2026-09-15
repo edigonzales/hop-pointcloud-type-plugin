@@ -4,7 +4,9 @@ package ch.so.agi.hop.pointcloud;
  * Storage type of a single point dimension.
  *
  * <p>The set mirrors the provider dimension types (signed/unsigned integers of 8, 16, 32 and 64
- * bit, 32 and 64 bit floating point) without depending on a provider library.
+ * bit, 32 and 64 bit floating point) without depending on a provider library. {@code UNKNOWN} is
+ * used when a descriptor was created from a lightweight preview that cannot determine the storage
+ * type; new values are appended so that the wire format stays stable.
  */
 public enum PointDataType {
   INT8,
@@ -16,7 +18,8 @@ public enum PointDataType {
   INT64,
   UINT64,
   FLOAT32,
-  FLOAT64;
+  FLOAT64,
+  UNKNOWN;
 
   public boolean isFloatingPoint() {
     return this == FLOAT32 || this == FLOAT64;
