@@ -9,8 +9,10 @@ class PointCloudReferenceTest {
   @Test
   void normalizesLocalPaths() {
     var reference = new PointCloudReference("data/./tile.laz", null);
-    assertThat(reference.location()).endsWith("data/tile.laz");
-    assertThat(reference.location()).startsWith("/");
+    var expected =
+        java.nio.file.Path.of("data/tile.laz").toAbsolutePath().normalize().toString();
+    assertThat(reference.location()).isEqualTo(expected);
+    assertThat(java.nio.file.Path.of(reference.location()).isAbsolute()).isTrue();
     assertThat(reference.remote()).isFalse();
   }
 
