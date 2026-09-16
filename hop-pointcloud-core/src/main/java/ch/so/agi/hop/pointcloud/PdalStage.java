@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
  * execution backend, which knows the provider semantics.
  */
 public record PdalStage(String type, Map<String, String> options) {
-  private static final Pattern TYPE = Pattern.compile("[a-z][a-z0-9_]*\\.[a-z][a-z0-9_]*");
+  private static final Pattern TYPE = Pattern.compile("[a-z][a-z0-9_]*\\.[a-z][A-Za-z0-9_]*");
   private static final Pattern OPTION = Pattern.compile("[A-Za-z][A-Za-z0-9_]*");
   private static final int MAX_OPTIONS = 64;
   private static final int MAX_OPTION_LENGTH = 64 * 1024;
