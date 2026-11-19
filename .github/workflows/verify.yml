@@ -5,21 +5,20 @@ permissions:
   contents: read
 jobs:
   build:
-    uses: edigonzales/hop-plugin-ci/.github/workflows/plugin-verify.yml@990af4813013fa8d21f6447e7545ed5499f2f202
+    uses: edigonzales/hop-plugin-ci/.github/workflows/verify.yml@f0a1eec368cb8c5d2592086b26393a6fc3916ad1
     with:
-      ci-ref: 990af4813013fa8d21f6447e7545ed5499f2f202
       java-versions: '["21", "25"]'
       runner-os: '["ubuntu-latest", "macos-15", "windows-latest"]'
       canonical-runner-os: ubuntu-latest
       canonical-java-version: '21'
       maven-goals: clean verify
       compatibility-goals: test
-      pom-file: assemblies/pom.xml
-      zip-glob: assemblies/target/hop-pointcloud-type-plugin-*.zip
-      plugin-root: plugins/misc/hop-pointcloud-type
+      pom-file: pom.xml
       artifact-name-prefix: hop-pointcloud-type-plugin
-      group-id: ch.so.agi
-      artifact-id: hop-pointcloud-type-plugin
-      hop-version: 2.19.0
-      validation-commands: '["python scripts/verify-package.py", "python scripts/stage-artifacts.py"]'
-      additional-verified-files: '["pom.xml", "target/publication/hop-pointcloud-core.pom", "target/publication/hop-pointcloud-core-0.1.0-SNAPSHOT.jar", "target/publication/hop-pointcloud-type.pom", "target/publication/hop-pointcloud-type-0.1.0-SNAPSHOT.jar"]'
+      artifacts: >-
+        [{"pom":"pom.xml"},
+         {"file":"hop-pointcloud-core/target/hop-pointcloud-core-*-SNAPSHOT.jar","pom":"hop-pointcloud-core/pom.xml"},
+         {"file":"hop-pointcloud-type/target/hop-pointcloud-type-*-SNAPSHOT.jar","pom":"hop-pointcloud-type/pom.xml"},
+         {"file":"assemblies/target/hop-pointcloud-type-plugin-*.zip","pom":"assemblies/pom.xml"}]
+      validation-command: |
+        python scripts/verify-package.py
