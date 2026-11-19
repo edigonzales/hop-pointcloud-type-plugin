@@ -13,9 +13,12 @@ jobs:
       canonical-java-version: '21'
       maven-goals: clean verify
       compatibility-goals: test
-      pom-file: assemblies/pom.xml
+      pom-file: pom.xml
       artifact-name-prefix: hop-pointcloud-type-plugin
       artifacts: >-
-        [{"file":"assemblies/target/hop-pointcloud-type-plugin-*.zip","pom":"assemblies/pom.xml"}]
+        [{"pom":"pom.xml"},
+         {"file":"hop-pointcloud-core/target/hop-pointcloud-core-*-SNAPSHOT.jar","pom":"hop-pointcloud-core/pom.xml"},
+         {"file":"hop-pointcloud-type/target/hop-pointcloud-type-*-SNAPSHOT.jar","pom":"hop-pointcloud-type/pom.xml"},
+         {"file":"assemblies/target/hop-pointcloud-type-plugin-*.zip","pom":"assemblies/pom.xml"}]
       validation-command: |
         python scripts/verify-package.py
