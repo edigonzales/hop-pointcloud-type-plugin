@@ -13,7 +13,7 @@ value. Execution is provided by a separate backend plugin
 
 | Module | Description |
 | --- | --- |
-| `hop-pointcloud-core` | Backend-neutral model: `PointCloudDataset`, `PointCloudDescriptor`, `PointDimension`, `PdalPlan`, `PointCloudCodec`, `PointCloudBackend` SPI |
+| `hop-pointcloud-core` | Backend-neutral model: `PointCloudDataset`, `PointCloudDescriptor`, `PointDimension`, `PdalPlan`, `PointCloudCodec` |
 | `hop-pointcloud-type` | `ValueMetaPointCloud` registered as Hop value type (`sogeo-pointcloud` class loader group) |
 | `assemblies` | Builds the installable `hop-pointcloud-type-plugin-*.zip` |
 
@@ -75,7 +75,7 @@ contract.
 
 - `pdal-java-bindings`: FFM bindings and bundled PDAL runtime (`Pdal.execute`)
 - `hop-pdal-plugin`: Hop transforms (reader, writer, info, crop, reproject, filters) that implement
-  `PointCloudBackend` and fuse the plan of consecutive transforms into a single PDAL pipeline
+  the concrete PDAL backend and fuse consecutive transform stages into a single pipeline
 
 ## Roadmap
 

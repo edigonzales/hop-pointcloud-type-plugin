@@ -30,18 +30,10 @@ that exceed a limit fail while planning, not while writing.
 
 ## Execution
 
-`PointCloudBackend` is the provider SPI:
-
-```java
-PointCloudDescriptor describe(String location) throws Exception;
-PointCloudExecution execute(PdalPlan plan, BooleanSupplier stopped) throws Exception;
-```
-
-`describe` returns the schema of a source without materializing points. `execute` runs a complete
-pipeline (reader ... writer) and returns `PointCloudExecution` (point count, metadata JSON, log) -
-a plain value without native handles. A backend instance belongs to one transform copy and is not
-shared between threads. Implementations live outside this repository
-(`hop-pdal-plugin` uses `pdal-ffm-core` with a bundled PDAL runtime).
+The PDAL plugin describes sources without materializing points and executes complete plans.
+It reports point counts, metadata JSON and logs as a handle-free `PointCloudExecution`.
+The execution context belongs to one consuming transform copy. The PDAL plugin owns the native
+runtime and does not share that context between threads or pipeline branches.
 
 Opening point data for actual coordinate access is deliberately not part of V1. A later
 `PointCloudReader`/`PointBlock` extension will return read-only, block-wise views instead of
